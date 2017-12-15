@@ -22,12 +22,6 @@ public class DBConnection {
 		try {
 
 			MysqlDataSource db = new MysqlDataSource();
-			System.out.println("Data Connect");
-			System.out.println(System.getenv("ICSI518_SERVER"));
-			System.out.println(Integer.parseInt(System.getenv("ICSI518_PORT")));
-			System.out.println(System.getenv("ICSI518_DB"));
-			System.out.println(System.getenv("ICSI518_USER"));
-			System.out.println(System.getenv("ICSI518_PASSWORD"));
 
 			db.setServerName(System.getenv("ICSI518_SERVER"));
 			db.setPortNumber(Integer.parseInt(System.getenv("ICSI518_PORT")));
@@ -40,5 +34,15 @@ public class DBConnection {
 			e.printStackTrace();
 		}
 		return connection;
+	}
+
+	public static void main(String a[]) {
+		DBConnection data = DBConnection.getInstance();
+		try {
+			Connection con = data.createConnection();
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
 	}
 }

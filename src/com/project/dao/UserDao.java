@@ -3,7 +3,9 @@ package com.project.dao;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 
+import com.project.bean.AdminBean;
 import com.project.bean.UserBean;
 import com.project.utils.DBConnection;
 
@@ -69,15 +71,53 @@ public class UserDao {
 
 		return false;
 	}
-	
-	public static void main(String a[]) {
-		DBConnection data = DBConnection.getInstance();
+
+	public boolean updateUser(String fullName, String number, String address, String city, String state, String zip,
+			String email) {
 		try {
-			Connection con = data.createConnection();
+			PreparedStatement statement = connection
+					.prepareStatement("update user SET name=?,number=?,address=?,city=?,state=?,zip=? where email=?");
+			statement.setString(1, fullName);
+			statement.setString(2, number);
+			statement.setString(3, address);
+			statement.setString(4, city);
+			statement.setString(5, state);
+			statement.setString(6, zip);
+			statement.setString(7, email);
+
+			statement.executeUpdate();
+			return true;
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			return false;
+		}
+
+	}
+
+	public boolean validateAdminLogin(AdminBean adminBean) {
+		// TODO Auto-generated method stub
+		try {
+			Statement statement = connection.createStatement();
+			ResultSet rSet = statement.executeQuery("select * from user where email='" + adminBean.getEmail()
+					+ "' and password='" + adminBean.getPassword() + "' and type='admin'");
+			if (rSet.next()) {
+				adminBean.setFullName(rSet.getString("name"));
+				adminBean.setNumber(rSet.getString("number"));
+				adminBean.setAddress(rSet.getString("address"));
+				adminBean.setCity(rSet.getString("city"));
+				adminBean.setState(rSet.getString("state"));
+				adminBean.setZip(rSet.getString("zip"));
+				adminBean.setType(rSet.getString("type"));
+				adminBean.setUser_id(rSet.getInt("user_id"));
+				adminBean.setBalance(rSet.getDouble("balance"));
+				return true;
+			}
 		} catch (Exception e) {
 			// TODO: handle exception
 			e.printStackTrace();
 		}
+		return false;
 	}
 
 }

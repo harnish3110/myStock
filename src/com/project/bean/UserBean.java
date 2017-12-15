@@ -7,19 +7,19 @@ import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
-import javax.validation.constraints.NotNull; 
+import javax.validation.constraints.NotNull;
 
 import com.project.dao.UserDao;
 
 @ManagedBean(name = "userBean")
 @SessionScoped
 public class UserBean implements Serializable {
-	
+
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = -3174507835881437311L;
-	
+
 	@NotNull(message = "Field can't be null")
 	private String fullName;
 	@NotNull(message = "Field can't be null")
@@ -41,6 +41,15 @@ public class UserBean implements Serializable {
 	private String status;
 	private int user_id;
 	private double balance;
+	private double fees;
+
+	public double getFees() {
+		return fees;
+	}
+
+	public void setFees(double fees) {
+		this.fees = fees;
+	}
 
 	public int getUser_id() {
 		return user_id;
@@ -141,13 +150,27 @@ public class UserBean implements Serializable {
 	public String register() {
 		System.out.println("in register");
 		UserDao dao = new UserDao();
-		if (type.equals("student"))
+		FacesContext facesContext = FacesContext.getCurrentInstance();
+		if (type.equals("student")) {
+			this.setFees(0.0);
 			this.setStatus("approved");
-		else
+			this.setBalance(100000);
+		} else {
+			this.setBalance(0);
 			this.setStatus("pending");
+		}
 
-		if (dao.registerUser(this))
-			return "userHome?faces-redirect=true";
+		if (dao.registerUser(this)) {
+			facesContext.getExternalContext().getSession(true);
+			facesContext.getExternalContext().getSessionMap().put("fullName", this.getFullName());
+			facesContext.getExternalContext().getSessionMap().put("uid", this.getUser_id());
+			facesContext.getExternalContext().getSessionMap().put("user", this);
+		
+			if (type.equals("student"))
+				return "userHome?faces-redirect=true";
+			else
+				return "managerHome?faces-redirect=true";
+		}
 		else
 			return "register?faces-redirect=true";
 	}
@@ -157,6 +180,7 @@ public class UserBean implements Serializable {
 		FacesContext facesContext = FacesContext.getCurrentInstance();
 		UserDao dao = new UserDao();
 		if (dao.loginUser(this)) {
+			System.out.println("Balance =" + this.getBalance());
 			facesContext.getExternalContext().getSession(true);
 			facesContext.getExternalContext().getSessionMap().put("fullName", this.getFullName());
 			facesContext.getExternalContext().getSessionMap().put("uid", this.getUser_id());
@@ -178,4 +202,21 @@ public class UserBean implements Serializable {
 		FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
 		FacesContext.getCurrentInstance().getExternalContext().redirect("login.xhtml");
 	}
+
+	public String userUpdate() {
+		try {
+			UserDao dao = new UserDao();
+			if (dao.updateUser(fullName, number, address, city, state, zip, email)) {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Profile Updated Succesfully"));
+			} else {
+				FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Some Error"));
+			}
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+			FacesContext.getCurrentInstance().addMessage(null, new FacesMessage("Some Error"));
+		}
+		return "userHome";
+	}
+
 }

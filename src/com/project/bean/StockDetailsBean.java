@@ -224,7 +224,10 @@ public class StockDetailsBean implements Serializable {
 	public String purchaseStock(String symbol, String stockName, double price, int qty, double total) {
 		try {
 			DBConnection dataConnect = DBConnection.getInstance();
-			UserBean user = (UserBean) getRequestParameter("user");
+			UserBean user = (UserBean) FacesContext.getCurrentInstance().getExternalContext().getSessionMap()
+					.get("user");
+			System.out.println("city =" + user.getCity());
+			System.out.println(user.getBalance());
 			double balance = user.getBalance();
 			if (balance > total) {
 				Connection connection = dataConnect.createConnection();

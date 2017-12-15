@@ -42,7 +42,7 @@
 				<li class="nav-link" style="color: white;"><p>
 						<i class="fa fa-user-circle-o" aria-hidden="true"></i>
 						<h:panelGroup rendered="#{not empty userBean.fullName}">
-							#{userBean.fullName}
+							#{sessionScoped.fullName}
 						</h:panelGroup>
 					</p></li>
 				<li class="nav-item active"><a class="nav-link"
@@ -60,7 +60,7 @@
 						action="account.xhtml">
 						<h:outputText value="Account History"></h:outputText>
 					</h:commandLink></li>
-					<li class="nav-item"><h:commandLink class="nav-link"
+				<li class="nav-item"><h:commandLink class="nav-link"
 						action="updateprofile.xhtml">
 						<h:outputText value="Update Profile"></h:outputText>
 					</h:commandLink></li>

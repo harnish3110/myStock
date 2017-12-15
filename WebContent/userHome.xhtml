@@ -1,0 +1,48 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Dash Board</title>
+</h:head>
+
+<h:body>
+
+	<!-- Icon Bar (Sidebar - hidden on small screens) -->
+	<ui:include src="userHeader.xhtml" />
+	<f:event listener="#{stockApi.listWatchList}" type="preRenderView" />
+
+	<div class="container">
+		<div class="row">
+
+			<h:form>
+				<h:messages></h:messages>
+				<h:selectOneMenu id="symbol" binding="#{symbol}" value="#{stockApi.selectedSymbol}">
+					<f:selectItems  value="#{stockApi.watchList}" />
+				</h:selectOneMenu>
+
+				<label for="sel1">Interval: </label>
+				<h:selectOneMenu id="interval" binding="#{interval}" value="#{stockApi.selectedInterval}">
+					<f:selectItems value="#{stockApi.availableIntervals}" />
+				</h:selectOneMenu>
+				<br />
+				<h:commandButton styleClass="btn btn-primary"
+					value="Get Data"
+					action="#{stockDetailsBean.getStockInfo(symbol.value, interval.value)}" />
+			</h:form>
+		</div>
+	</div>
+
+	<!-- Footer -->
+	<!-- <ui:include src="userFooter.xhtml" /> -->
+
+	<!-- END PAGE CONTENT -->
+
+</h:body>
+
+
+
+
+</html>

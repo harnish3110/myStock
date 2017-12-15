@@ -1,0 +1,186 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<!-- Latest compiled and minified CSS -->
+	<script
+		src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+	<!-- 	<script src="resources/js/registration.js"></script> -->
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+
+	<!-- Optional theme -->
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" />
+
+	<!-- Latest compiled and minified JavaScript -->
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+	<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js"></script>
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"></link>
+
+	<!-- Custom CSS -->
+	<style type="text/css">
+.main>div {
+	display: inline-block;
+	width: 49%;
+	margin-top: 10px;
+}
+
+.two .register {
+	border: none;
+}
+
+.two .register h3 {
+	border-bottom-color: #909090;
+}
+
+.two .register .sep {
+	border-color: #909090;
+}
+
+.register {
+	width: 500px;
+	margin: 10px auto;
+	padding: 10px;
+	border: 7px solid #72B372;
+	border-radius: 10px;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #444;
+	background-color: #F0F0F0;
+	box-shadow: 0 0 20px 0 #000000;
+}
+
+.register h3 {
+	margin: 0 15px 20px;
+	border-bottom: 2px solid #72B372;
+	padding: 5px 10px 5px 0;
+	font-size: 1.1em;
+}
+
+.register div {
+	margin: 0 0 15px 0;
+	border: none;
+}
+
+.register label {
+	display: inline-block;
+	width: 25%;
+	text-align: right;
+	margin: 10px;
+}
+
+.register input[type=text], .register input[type=password], .register select {
+	width: 65%;
+	font-family: "Lucida Grande", "Lucida Sans Unicode", Tahoma, Sans-Serif;
+	padding: 5px;
+	font-size: 0.9em;
+	border-radius: 5px;
+	background: rgba(0, 0, 0, 0.07);
+	
+}
+
+.register input[type=text]:focus, .register input[type=password]:focus {
+	background: #FFFFFF;
+}
+
+.register .my-button {
+	font-size: 1em;
+	border-radius: 8px;
+	padding: 10px;
+	border: 1px solid #59B969;
+	box-shadow: 0 1px 0 0 #60BD49 inset;
+	background: #63E651;
+	background: -webkit-linear-gradient(#63E651, #42753E);
+	background: -moz-linear-gradient(#63E651, #42753E);
+	background: -o-linear-gradient(#63E651, #42753E);
+	background: _linear-gradient_legacy(#63E651, #42753E . . .);
+}
+
+.register .my-button:hover {
+	background: #51DB1C;
+	background: -webkit-linear-gradient(#51DB1C, #6BA061);
+	background: -moz-linear-gradient(#51DB1C, #6BA061);
+	background: -o-linear-gradient(#51DB1C, #6BA061);
+	background: _linear-gradient_legacy(#51DB1C, #6BA061 . . .);
+}
+</style>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var placeholder = null;
+			$('input[type=text]').focus(function() {
+				placeholder = $(this).attr("placeholder");
+				$(this).attr("placeholder", "");
+			});
+			$('input[type=text]').blur(function() {
+				$(this).attr("placeholder", placeholder);
+			});
+		});
+	</script>
+</h:head>
+<h:body>
+<div class="header">
+	<h2>My Stock</h2>
+</div>
+	<div class="two">
+		<div class="register">
+			<h3>Create your account</h3>
+			<h:form class="reg-form">
+				<div>
+					<h:outputLabel for="fName">Full Name</h:outputLabel>
+					<h:inputText class="reg-input" id="fName" name="fName" value="#{userBean.fullName}"></h:inputText>
+				</div>
+				<div>
+					<h:outputLabel for="email">Email</h:outputLabel>
+					<h:inputText id="email" name="email" value="#{userBean.email}"></h:inputText>
+				</div>
+				<div>
+					<h:outputLabel for="type">User Type</h:outputLabel>
+					<h:selectOneMenu id="type" name="type" value="#{userBean.type}">
+						<f:selectItem itemValue="student" itemLabel="Student" />
+						<f:selectItem itemValue="manager" itemLabel="Manager" />
+					</h:selectOneMenu>
+				</div>
+				<div>
+					<h:outputLabel for="number">Phone</h:outputLabel>
+					<h:inputText id="number" name="number" value="#{userBean.number}"></h:inputText>
+				</div>
+				<div>
+					<h:outputLabel for="address">Address</h:outputLabel>
+					<h:inputText id="address" name="address" value="#{userBean.address}"></h:inputText>
+				</div>
+				<div>
+					<h:outputLabel for="city">City</h:outputLabel>
+					<h:inputText id="city" name="city" value="#{userBean.city}"></h:inputText>
+				</div>
+				<div>
+					<h:outputLabel for="state">State</h:outputLabel>
+					<h:inputText id="state" name="state" value="#{userBean.state}"></h:inputText>
+				</div>
+				<div>
+					<h:outputLabel for="zip">Zip Code</h:outputLabel>
+					<h:inputText id="zip" name="zip" value="#{userBean.zip}"></h:inputText>
+				</div>
+				<div>
+					<h:outputLabel for="password">Password</h:outputLabel>
+					<h:inputSecret id="password" name="password" value="#{userBean.password}">
+					</h:inputSecret>
+				</div>
+				<div>
+					<label></label>
+					<h:commandButton class="my-button" value="Create My Account"
+						id="submit" action="#{userBean.register}"></h:commandButton>
+						<a style="margin-left: 10px;" href="login.xhtml">Have an Account. Log In</a>
+				</div>
+			</h:form>
+		</div>
+	</div>
+</h:body>
+
+</html>

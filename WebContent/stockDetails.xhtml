@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<style type="text/css">
+.data {
+	width: 1200px;
+	margin: 10px auto;
+}
+</style>
+
+</h:head>
+<h:body>
+	<div>
+		<ui:include src="userHeader.xhtml" />
+	</div>
+	<f:event listener="#{stockDetailsBean.getStockDetails}"
+		type="preRenderView" />
+	<div class="data">
+		<h:form>
+			<h:messages styleClass="text-warning"></h:messages>
+			<h:panelGroup
+				rendered="#{not empty stockDetailsBean.stockDetailTable}">
+				<h:outputText value="#{stockDetailsBean.stockDetailTable}"
+					escape="false" styleClass="preformatted" />
+				<div class="text-center">
+					<h:commandButton styleClass=" btn btn-primary"
+						value="Add to Watch List" action="#{stockApi.addToWatchList}" />
+						<h:commandButton styleClass=" btn btn-primary"
+						value="Purchase" action="purchaseStock.xhtml" />
+				</div>
+
+			</h:panelGroup>
+		</h:form>
+	</div>
+	<div class="data">
+		<br />
+		<h2>History:</h2>
+	</div>
+	<div class="data">
+		<h:panelGroup
+			rendered="#{not empty stockDetailsBean.stockHistoryTable}">
+			<h:outputText value="#{stockDetailsBean.stockHistoryTable}"
+				escape="false" styleClass="preformatted" />
+		</h:panelGroup>
+	</div>
+</h:body>
+
+</html>

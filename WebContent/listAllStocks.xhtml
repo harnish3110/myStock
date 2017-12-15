@@ -1,0 +1,38 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+
+<h:body class="w3-black">
+	<ui:include src="userHeader.xhtml" />
+	<h:messages styleClass="text-info"></h:messages>
+	<h1>List All STock</h1>
+	<div class='container'>
+		<h:panelGroup rendered="#{not empty stockApi.allStockTable}">
+			<h:outputText value="#{stockApi.allStockTable}" escape="false"
+				styleClass="preformatted" />
+		</h:panelGroup>
+	</div>
+
+
+
+	<!-- Footer -->
+	<ui:include src="userFooter.xhtml" />
+	<!-- END PAGE CONTENT -->
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#allStocksList').DataTable({
+				"paging" : true,
+				"ordering" : false,
+				"info" : false
+			});
+			var element = document.getElementById("allStocksList_wrapper");
+		    element.classList.remove("form-inline");
+		});
+	</script>
+</h:body>
+</html>

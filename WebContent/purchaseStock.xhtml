@@ -1,0 +1,57 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+<h:head>
+	<link rel="stylesheet" href="resources/css/user.css"></link>
+	<script type="text/javascript">
+		function calculateAmount() {
+			console.log(($("#purchase .price").val() * $("#purchase .qty")
+					.val()).toFixed(2));
+			$("#purchase .total").val(
+					($("#purchase .price").val() * $("#purchase .qty").val())
+							.toFixed(2));
+		}
+	</script>
+</h:head>
+<h:body>
+	<ui:include src="userHeader.xhtml"></ui:include>
+
+	<div class="">
+		<h:messages class="text-warn" />
+		<div class="register">
+			<h:form id="purchase" class="reg-form">
+				<div>
+					<h:outputLabel for="symbol">Stock</h:outputLabel>
+					<h:inputText id="symbol" styleClass="symbol" disabled="true"
+						binding="#{symbol}" name="stock"
+						value="#{sessionScope.selectedStockName}"></h:inputText>
+				</div>
+				<div>
+					<h:outputLabel for="price">Price</h:outputLabel>
+					<h:inputText id="price" disabled="true" binding="#{price}"
+						name="price" styleClass="price" value="#{sessionScope.stockPrice}"></h:inputText>
+				</div>
+				<div>
+					<h:outputLabel for="qty">Quantity</h:outputLabel>
+					<h:inputText id="qty" styleClass="qty" binding="#{qty}" name="qty"
+						onkeyup="calculateAmount()" value="#{stockDetailsBean.quantity}"></h:inputText>
+				</div>
+				<div>
+					<h:outputLabel for="total">Total</h:outputLabel>
+					<h:inputText id="total" styleClass="total"	binding="#{total}" name="total" value="#{stockDetailsBean.amount}" required="true"></h:inputText>
+				</div>
+				<div>
+					<label></label>
+					<h:commandButton class="my-button" value="Purchase" id="submit"
+						action="#{stockDetailsBean.purchaseStock(sessionScope.selectedSymbol,sessionScope.selectedStockName,price.value,qty.value,total.value)}"></h:commandButton>
+				</div>
+			</h:form>
+		</div>
+	</div>
+
+</h:body>
+</html>

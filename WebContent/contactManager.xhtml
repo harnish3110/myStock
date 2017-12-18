@@ -6,15 +6,51 @@
 	xmlns:h="http://xmlns.jcp.org/jsf/html"
 	xmlns:f="http://xmlns.jcp.org/jsf/core">
 
-<h:head></h:head>
-<h:body class="w3-black">
-<ui:include src="userHeader.xhtml"/>
+<h:head>
+	<style type="text/css">
+#stock-list td {
+	width: 30%
+}
+</style>
 
+</h:head>
+<h:body>
+	<ui:include src="userHeader.xhtml" />
+	<div class="container">
+	<h3>Contact Manger</h3>
+		<h:panelGroup rendered="#{not empty userBean.manager_id}">
+			<h:dataTable id="stock-list" value="#{userBean.populateStocks()}"
+				var="stock" class="table table-striped" cellspacing="0" cellpadding="0">
+				<h:column>
+					<f:facet name="header"> Stock Name</f:facet>
+					<h:outputText value="#{stock.stockName}"></h:outputText>
+				</h:column>
+				<h:column>
+					<f:facet name="header">Stock Symbol</f:facet>
+					<h:outputText value="#{stock.stockSymbol}"></h:outputText>
+				</h:column>
+				<h:column>
+					<div>
+						<h:form styleClass="form-inline">
+							<div>
+								<f:facet name="header">Quantity</f:facet>
+								<h:inputText binding="#{selectedQty}" id="selectedQty"
+									styleClass="form-control qty" value="#{userBean.selectedQty}"
+									required="true"></h:inputText>
+								<f:facet name="header">Action</f:facet>
+							</div>
+							<div>
+								<h:commandButton value="Buy" styleClass="btn btn-primary"
+									action="#{userBean.sendMsgToManager(stock.stockName,stock.stockSymbol,selectedQty.value)}">
+								</h:commandButton>
+							</div>
+						</h:form>
+					</div>
+				</h:column>
+			</h:dataTable>
+		</h:panelGroup>
+	</div>
 
-		<!-- Footer -->
-		<ui:include src="userFooter.xhtml"/>
-
-		<!-- END PAGE CONTENT -->
 
 </h:body>
 </html>

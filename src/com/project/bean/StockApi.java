@@ -43,6 +43,24 @@ public class StockApi implements Serializable {
 	private List<SelectItem> watchList;
 	private List<SelectItem> availableIntervals;
 	private String selectedInterval;
+	private String symbolName;
+	private String purchasedBy;
+
+	public String getSymbolName() {
+		return symbolName;
+	}
+
+	public void setSymbolName(String symbolName) {
+		this.symbolName = symbolName;
+	}
+
+	public String getPurchasedBy() {
+		return purchasedBy;
+	}
+
+	public void setPurchasedBy(String purchasedBy) {
+		this.purchasedBy = purchasedBy;
+	}
 
 	/**
 	 * Default constructor.
@@ -241,6 +259,12 @@ public class StockApi implements Serializable {
 		}
 	}
 
-
+	public String sellStock(String stockName, String symbol, int qty) {
+		System.out.println("aaasss");
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("sellStockName", stockName);
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("sellStockSymbol", symbol);
+		FacesContext.getCurrentInstance().getExternalContext().getSessionMap().put("sellStockQty", qty);
+		return "sellStock";
+	}
 
 }

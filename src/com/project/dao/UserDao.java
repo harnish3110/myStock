@@ -20,7 +20,7 @@ public class UserDao {
 	public boolean registerUser(UserBean userBean) {
 		try {
 			PreparedStatement statement = connection.prepareStatement(
-					"insert into user(`name`,`email`,`password`,`number`,`address`,`city`,`state`,`zip`,`type`,`status`)VALUES(?,?,?,?,?,?,?,?,?,?); ");
+					"insert into user(`name`,`email`,`password`,`number`,`address`,`city`,`state`,`zip`,`type`,`status`,`fees`)VALUES(?,?,?,?,?,?,?,?,?,?,?); ");
 			statement.setString(1, userBean.getFullName());
 			statement.setString(2, userBean.getEmail());
 			statement.setString(3, userBean.getPassword());
@@ -31,6 +31,7 @@ public class UserDao {
 			statement.setString(8, userBean.getZip());
 			statement.setString(9, userBean.getType());
 			statement.setString(10, userBean.getStatus());
+			statement.setDouble(11, userBean.getFees());
 			statement.executeUpdate();
 			return true;
 		} catch (Exception e) {
@@ -60,6 +61,8 @@ public class UserDao {
 				userBean.setType(rSet.getString("type"));
 				userBean.setUser_id(rSet.getInt("user_id"));
 				userBean.setBalance(rSet.getDouble("balance"));
+				userBean.setManager_id(rSet.getInt("manager_id"));
+				userBean.setFees(rSet.getDouble("fees"));
 				return true;
 			} else
 				return false;
@@ -111,6 +114,7 @@ public class UserDao {
 				adminBean.setType(rSet.getString("type"));
 				adminBean.setUser_id(rSet.getInt("user_id"));
 				adminBean.setBalance(rSet.getDouble("balance"));
+				
 				return true;
 			}
 		} catch (Exception e) {

@@ -7,15 +7,64 @@
 <h:head>
 	<title>Dash Board</title>
 </h:head>
-<title>W3.CSS Template</title>
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css"></link>
-<link rel="stylesheet"
-	href="https://fonts.googleapis.com/css?family=Montserrat"></link>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"></link>
 
-<h:body class="w3-black">
+<h:body>
 	<ui:include src="managerHeader.xhtml"></ui:include>
-	<h1>Welcome #{sessionScoped.fullName}</h1>
+	<div>
+		<h1>Total Money Earned: <h:outputText value="#{userBean.balance}"></h:outputText></h1>
+		
+	</div>
+
+	<div class="container">
+		<div class="row">
+			<h3>Communication</h3>
+			<h:panelGroup>
+				<h:dataTable value="#{managerBean.populateCommunication()}"
+					var="msg" class="table table-striped">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Student Name"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{msg.studentName}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Stock Name"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{msg.stockName}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Stock Symbol"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{msg.stockSymbol}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Qty"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{msg.qty}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Transaction Type"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{msg.transaction}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Action"></h:outputText>
+						</f:facet>
+						<h:form>
+							<h:commandLink value="Do Action"
+								action="#{managerBean.doAction(msg)}"></h:commandLink>
+						</h:form>
+					</h:column>
+
+				</h:dataTable>
+			</h:panelGroup>
+		</div>
+	</div>
+
 </h:body>
 </html>

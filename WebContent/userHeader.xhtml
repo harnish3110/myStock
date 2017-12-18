@@ -42,26 +42,32 @@
 				<li class="nav-link" style="color: white;"><p>
 						<i class="fa fa-user-circle-o" aria-hidden="true"></i>
 						<h:panelGroup rendered="#{not empty userBean.fullName}">
-							#{userBean.fullName}
+							#{sessionScoped.fullName}
 						</h:panelGroup>
 					</p></li>
-				<li class="nav-item active"><a class="nav-link"
-					href="userHome.xhtml">Home <span class="sr-only">(current)</span>
-				</a></li>
+				<li class="nav-item active"><h:commandLink class="nav-link"
+						action="#{serviceBean.getUserHome}">
+						<h:outputText value="Home"></h:outputText>
+						<span class="sr-only">(current)</span>
+					</h:commandLink></li>
 				<li class="nav-item"><h:commandLink class="nav-link"
-						action="listAllStocks.xhtml">
+						action="#{serviceBean.getListOfStock}">
 						<h:outputText value="List All Stocks"></h:outputText>
 					</h:commandLink></li>
 				<li class="nav-item"><h:commandLink class="nav-link"
-						action="contactManager.xhtml">
-						<h:outputText value="Manager"></h:outputText>
+						action="#{serviceBean.getSelectManager}">
+						<h:outputText value="Select Manager"></h:outputText>
 					</h:commandLink></li>
 				<li class="nav-item"><h:commandLink class="nav-link"
-						action="account.xhtml">
+						action="#{serviceBean.getContactManager}">
+						<h:outputText value="Contact Manager"></h:outputText>
+					</h:commandLink></li>
+				<li class="nav-item"><h:commandLink class="nav-link"
+						action="#{serviceBean.getAccountDetails}">
 						<h:outputText value="Account History"></h:outputText>
 					</h:commandLink></li>
-					<li class="nav-item"><h:commandLink class="nav-link"
-						action="updateprofile.xhtml">
+				<li class="nav-item"><h:commandLink class="nav-link"
+						action="#{serviceBean.getUpdateProfile}">
 						<h:outputText value="Update Profile"></h:outputText>
 					</h:commandLink></li>
 				<li class="nav-item"><h:commandLink class="nav-link"

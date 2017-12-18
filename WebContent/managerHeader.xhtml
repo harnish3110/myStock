@@ -46,26 +46,14 @@
 						</h:panelGroup>
 					</p></li>
 				<li class="nav-item active"><a class="nav-link"
-					href="userHome.xhtml">Home <span class="sr-only">(current)</span>
+					href="managerHome.xhtml">Home <span class="sr-only">(current)</span>
 				</a></li>
 				<li class="nav-item"><h:commandLink class="nav-link"
-						action="listAllStocks.xhtml">
-						<h:outputText value="List All Stocks"></h:outputText>
-					</h:commandLink></li>
-				<li class="nav-item"><h:commandLink class="nav-link"
-						action="contactManager.xhtml">
-						<h:outputText value="Manager"></h:outputText>
-					</h:commandLink></li>
-				<li class="nav-item"><h:commandLink class="nav-link"
-						action="account.xhtml">
-						<h:outputText value="Account History"></h:outputText>
-					</h:commandLink></li>
-				<li class="nav-item"><h:commandLink class="nav-link"
-						action="updateprofile.xhtml">
+						action="updateprofileManager.xhtml">
 						<h:outputText value="Update Profile"></h:outputText>
 					</h:commandLink></li>
 				<li class="nav-item"><h:commandLink class="nav-link"
-						action="#{userBean.logout}">
+						action="#{userBean.logout()}">
 						<i class="fa fa-sign-out w3-xxlarge" aria-hidden="true"></i>
 						<h:outputText value="Log Out"></h:outputText>
 					</h:commandLink></li>

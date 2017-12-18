@@ -9,27 +9,28 @@
 </h:head>
 
 <h:body>
-
 	<!-- Icon Bar (Sidebar - hidden on small screens) -->
 	<ui:include src="userHeader.xhtml" />
 	<f:event listener="#{stockApi.listWatchList}" type="preRenderView" />
 
 	<div class="container">
+			<h3>My Watch List</h3><br/>
 		<div class="row">
-
 			<h:form>
 				<h:messages></h:messages>
-				<h:selectOneMenu id="symbol" binding="#{symbol}" value="#{stockApi.selectedSymbol}">
-					<f:selectItems  value="#{stockApi.watchList}" />
+				<h:outputLabel for="symbol" value="Stock: "></h:outputLabel>
+				<h:selectOneMenu id="symbol" binding="#{symbol}"
+					value="#{stockApi.selectedSymbol}" styleClass="form-control">
+					<f:selectItems value="#{stockApi.watchList}" />
 				</h:selectOneMenu>
-
-				<label for="sel1">Interval: </label>
-				<h:selectOneMenu id="interval" binding="#{interval}" value="#{stockApi.selectedInterval}">
+				<br/>
+				<h:outputLabel value="Interval: " for="interval"></h:outputLabel>
+				<h:selectOneMenu id="interval" binding="#{interval}"
+					value="#{stockApi.selectedInterval}" styleClass="form-control">
 					<f:selectItems value="#{stockApi.availableIntervals}" />
 				</h:selectOneMenu>
 				<br />
-				<h:commandButton styleClass="btn btn-primary"
-					value="Get Data"
+				<h:commandButton styleClass="btn btn-primary" value="Get Data"
 					action="#{stockDetailsBean.getStockInfo(symbol.value, interval.value)}" />
 			</h:form>
 		</div>

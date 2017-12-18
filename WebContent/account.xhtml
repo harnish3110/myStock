@@ -8,6 +8,136 @@
 <h:body>
 	<ui:include src="userHeader.xhtml"></ui:include>
 	<h:messages styleClass="text-warn"></h:messages>
-	
+	<div class="container">
+		<div class="row">
+			<h3>Bought</h3>
+			<h:panelGroup>
+				<h:dataTable value="#{userBean.populateHistory()}" var="stock"
+					class="table table-striped">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Name"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{stock.symbolName}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Symbol"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{stock.symbol}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Price"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{stock.price}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Quantity"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{stock.qty}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Total"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{stock.amt}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Purchased By:"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{stock.purchasedBy}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Acttion"></h:outputText>
+						</f:facet>
+						<h:form>
+							<h:commandLink styleClass="btn btn-success" value="Sell"
+								action="#{stockApi.sellStock(stock.symbolName,stock.symbol,stock.qty)}"></h:commandLink>
+						</h:form>
+					</h:column>
+
+				</h:dataTable>
+			</h:panelGroup>
+		</div>
+		<div class="row">
+		<h3>Sold</h3>
+			<h:panelGroup>
+				<h:dataTable value="#{userBean.populateSoldHistory()}" var="stock"
+					class="table table-striped">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Name"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{stock.symbolName}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Symbol"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{stock.symbol}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Price"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{stock.price}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Quantity"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{stock.qty}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Total"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{stock.amt}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Purchased By:"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{stock.purchasedBy}"></h:outputText>
+					</h:column>
+				</h:dataTable>
+			</h:panelGroup>
+
+		</div>
+		<div class="row">
+			<h3>Watch List</h3>
+			<h:panelGroup>
+				<h:dataTable value="#{userBean.populateWatchList()}" var="stock"
+					class="table table-striped">
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Name"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{stock.stockName}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Symbol"></h:outputText>
+						</f:facet>
+						<h:outputText value="#{stock.stockSymbol}"></h:outputText>
+					</h:column>
+					<h:column>
+						<f:facet name="header">
+							<h:outputText value="Action"></h:outputText>
+						</f:facet>
+						<h:form>
+							<h:commandLink styleClass="btn btn-warning" value="Remove"
+								action="#{userBean.removeStock(stock.stockSymbol)}"></h:commandLink>
+						</h:form>
+					</h:column>
+				</h:dataTable>
+			</h:panelGroup>
+		</div>
+	</div>
+
 </h:body>
 </html>

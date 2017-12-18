@@ -1,0 +1,45 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+
+<h:body>
+	<ui:include src="userHeader.xhtml"></ui:include>
+	<h:messages styleClass="text-warn"></h:messages>
+	<p>In Sell Stock</p>
+	<div class="container">
+		<div class="row">
+			<f:event listener="#{stockDetailsBean.getCurrentStockPrice}"
+				type="preRenderView" />
+
+			<h:messages styleClass="text-warning"></h:messages>
+			<h:panelGroup
+				rendered="#{not empty stockDetailsBean.sellStockDetailsTable}">
+				<h:outputText value="#{stockDetailsBean.sellStockDetailsTable}"
+					escape="false" styleClass="preformatted" />
+				<h:outputText
+					value="Current Price: #{stockDetailsBean.currentPrice}"></h:outputText>
+			</h:panelGroup>
+		</div>
+		<div class="row">
+
+			<h:form>
+				<div class="text-center">
+					<h:inputText id="sellQty" name="sellQty" styleClass="form-control"
+						value="#{stockDetailsBean.quantity}" binding="#{sellQty}"></h:inputText>
+					<h:commandButton styleClass=" btn btn-primary" value="Sell"
+						action="#{stockDetailsBean.sellStock(sellQty.value)}" />
+					<h:commandButton styleClass=" btn btn-primary"
+						value="Ask Manager to Sell"
+						action="#{stockDetailsBean.sellManagerMsg(sellQty.value)}" />
+				</div>
+
+			</h:form>
+		</div>
+	</div>
+</h:body>
+</html>

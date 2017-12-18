@@ -1,0 +1,71 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" 
+    "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+	xmlns:h="http://xmlns.jcp.org/jsf/html"
+	xmlns:f="http://xmlns.jcp.org/jsf/core">
+
+<h:head>
+	<link rel="stylesheet" href="resources/css/user.css"></link>
+	<script type="text/javascript">
+		$(document).ready(function() {
+			var placeholder = null;
+			$('input[type=text]').focus(function() {
+				placeholder = $(this).attr("placeholder");
+				$(this).attr("placeholder", "");
+			});
+			$('input[type=text]').blur(function() {
+				$(this).attr("placeholder", placeholder);
+			});
+		});
+	</script>
+</h:head>
+
+<h:body>
+	<ui:include src="managerHeader.xhtml"></ui:include>
+	<div class="two">
+		<div class="register">
+			<h3>Create your account</h3>
+			<h:form class="reg-form">
+				<div>
+					<h:outputLabel for="fName">Full Name</h:outputLabel>
+					<h:inputText class="reg-input" id="fName" name="fName"
+						value="#{userBean.fullName}"></h:inputText>
+				</div>
+				<div>
+					<h:outputLabel for="email">Email</h:outputLabel>
+					<h:inputText disabled="true" id="email" name="email"
+						value="#{userBean.email}"></h:inputText>
+				</div>
+				<div>
+					<h:outputLabel for="number">Phone</h:outputLabel>
+					<h:inputText id="number" name="number" value="#{userBean.number}"></h:inputText>
+				</div>
+				<div>
+					<h:outputLabel for="address">Address</h:outputLabel>
+					<h:inputText id="address" name="address"
+						value="#{userBean.address}"></h:inputText>
+				</div>
+				<div>
+					<h:outputLabel for="city">City</h:outputLabel>
+					<h:inputText id="city" name="city" value="#{userBean.city}"></h:inputText>
+				</div>
+				<div>
+					<h:outputLabel for="state">State</h:outputLabel>
+					<h:inputText id="state" name="state" value="#{userBean.state}"></h:inputText>
+				</div>
+				<div>
+					<h:outputLabel for="zip">Zip Code</h:outputLabel>
+					<h:inputText id="zip" name="zip" value="#{userBean.zip}"></h:inputText>
+				</div>
+				<div>
+					<label></label>
+					<h:commandButton class="my-button" value="update" id="submit"
+						action="#{userBean.userUpdate}"></h:commandButton>
+				</div>
+			</h:form>
+		</div>
+	</div>
+</h:body>
+</html>
